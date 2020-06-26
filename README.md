@@ -1,6 +1,6 @@
 # Getting started
 
-Base REST API for WebRTC
+Bandwidth WebRTC API
 
 ## How to Build
 
@@ -375,6 +375,48 @@ function deleteSession(accountId, sessionId, callback)
     var sessionId = 'sessionId';
 
     controller.deleteSession(accountId, sessionId, function(error, response, context) {
+
+    
+    });
+```
+
+#### Errors
+
+| Error Code | Error Description |
+|------------|-------------------|
+| 401 | Unauthorized |
+| 403 | Access Denied |
+| 404 | Not Found |
+| 0 | Unexpected Error |
+
+
+
+
+### <a name="list_session_participants"></a>![Method: ](https://apidocs.io/img/method.png ".APIController.listSessionParticipants") listSessionParticipants
+
+> List participants in a session
+
+
+```javascript
+function listSessionParticipants(accountId, sessionId, callback)
+```
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| accountId |  ``` Required ```  | Account ID |
+| sessionId |  ``` Required ```  | Session ID |
+
+
+
+#### Example Usage
+
+```javascript
+
+    var accountId = 'accountId';
+    var sessionId = 'sessionId';
+
+    controller.listSessionParticipants(accountId, sessionId, function(error, response, context) {
 
     
     });

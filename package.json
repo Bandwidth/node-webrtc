@@ -1,7 +1,7 @@
 {
   "name": "@bandwidth/webrtc",
-  "version": "0.2.0",
-  "description": "Base REST API for WebRTC",
+  "version": "0.3.0",
+  "description": "Bandwidth WebRTC API",
   "main": "./lib/index.js",
   "repository": {
     "type": "git",
