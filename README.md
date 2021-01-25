@@ -653,7 +653,34 @@ function generateTransferBxml(deviceToken, sipUri)
     var bxml = controller.generateTransferBxml(deviceToken, sipUri);
 ```
 
+### <a name="generate_transfer_bxml_verb"></a>![Method: ](https://apidocs.io/img/method.png ".APIController.generateTransferBxmlVerb") generateTransferBxmlVerb
 
+> Generates the BXML verb to transfer a call into a WebRTC session (not wrapped in a Response element).
+
+```javascript
+function generateTransferBxmlVerb(deviceToken, sipUri)
+```
+#### Parameters
+
+| Parameter | Tags | Description |
+|-----------|------|-------------|
+| deviceToken |  ``` Required ```  | deviceToken Token returned from createParticipant call |
+| sipUri |  ``` Optional ```  | [sipUri=sip:sipx.webrtc.bandwidth.com:5060] SIP URL to transfer to |
+
+#### Return
+
+| Description |
+|-----------|
+| BXML string |
+
+#### Example Usage
+
+```javascript
+    var deviceToken = 'deviceToken';
+    var sipUri = 'sipUri';
+
+    var bxmlVerb = controller.generateTransferBxmlVerb(deviceToken, sipUri);
+```
 
 
 [Back to List of Controllers](#list_of_controllers)
