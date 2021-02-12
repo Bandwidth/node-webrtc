@@ -6,7 +6,6 @@
 
 import { ApiResponse } from '../apiResponse';
 import { ApiError } from '../errors/apiError';
-import { Error } from '../errors/error';
 import { RequestOptions } from '../http/requestBuilder';
 import {
   AccountsParticipantsResponse,
