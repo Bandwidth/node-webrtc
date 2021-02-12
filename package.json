@@ -25,7 +25,7 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "bandwidthlib-webrtc",
+  "name": "@bandwidth/webrtc",
   "description": "Bandwidth WebRTC API",
   "author": "APIMATIC SDK Generator",
   "devDependencies": {
