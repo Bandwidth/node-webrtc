@@ -1,689 +1,826 @@
-# Getting started
+# Getting Started with WebRtc
+
+## Getting Started
+
+### Introduction
 
 Bandwidth WebRTC API
 
-## How to Build
+### Installation
 
-The generated SDK relies on [Node Package Manager](https://www.npmjs.com/) (NPM) being available to resolve dependencies. If you don't already have NPM installed, please go ahead and follow instructions to install NPM from [here](https://nodejs.org/en/download/).
-The SDK also requires Node to be installed. If Node isn't already installed, please install it from [here](https://nodejs.org/en/download/)
-> NPM is installed by default when Node is installed
+The following section explains how to use the bandwidthLib library in a new project.
 
-To check if node and npm have been successfully installed, write the following commands in command prompt:
+### Environments
 
-* `node --version`
-* `npm -version`
+The SDK can be configured to use a different environment for making API calls. Available environments are:
 
-![Version Check](https://apidocs.io/illustration/nodejs?step=versionCheck&workspaceFolder=WebRtc-Node)
+#### Fields
 
-Now use npm to resolve all dependencies by running the following command in the root directory (of the SDK folder):
+| Name | Description |
+|  --- | --- |
+| production | **Default** |
+| custom | - |
 
-```bash
-npm install
+### Initialize the API Client
+
+The following parameters are configurable for the API Client:
+
+| Parameter | Type | Description |
+|  --- | --- | --- |
+| `baseUrl` | `string` | *Default*: `'https://www.example.com'` |
+| `baseUrl` | `string` | *Default*: `'https://www.example.com'` |
+| `environment` | Environment | The API environment. <br> **Default: `Environment.Production`** |
+| `timeout` | `number` | Timeout for API calls.<br>*Default*: `0` |
+| `basicAuthUserName` | `string` | The username to use with basic authentication |
+| `basicAuthPassword` | `string` | The password to use with basic authentication |
+
+The API client can be initialized as follows:
+
+```ts
+const client = new Client({
+  timeout: 0,
+  environment: Environment.Production
+  basicAuthUserName: 'BasicAuthUserName',
+  basicAuthPassword: 'BasicAuthPassword',
+})
 ```
 
-![Resolve Dependencies](https://apidocs.io/illustration/nodejs?step=resolveDependency1&workspaceFolder=WebRtc-Node)
+### Authorization
 
-![Resolve Dependencies](https://apidocs.io/illustration/nodejs?step=resolveDependency2)
+This API uses `Basic Authentication`.
 
-This will install all dependencies in the `node_modules` folder.
+## Client Class Documentation
 
-Once dependencies are resolved, you will need to move the folder `WebRtcLib ` in to your `node_modules` folder.
+### WebRtcClient
 
-## How to Use
+The gateway for the SDK. This class acts as a factory for the Controllers and also holds the configuration of the SDK.
 
-The following section explains how to use the library in a new project.
+### Controllers
 
-### 1. Open Project Folder
-Open an IDE/Text Editor for JavaScript like Sublime Text. The basic workflow presented here is also applicable if you prefer using a different editor or IDE.
+| Name | Description |
+|  --- | --- |
+| aPI | Provides access to ApiController |
 
-Click on `File` and select `Open Folder`.
+## API Reference
 
-![Open Folder](https://apidocs.io/illustration/nodejs?step=openFolder)
+### List of APIs
 
-Select the folder of your SDK and click on `Select Folder` to open it up in Sublime Text. The folder will become visible in the bar on the left.
+* [API](#api)
 
-![Open Project](https://apidocs.io/illustration/nodejs?step=openProject&workspaceFolder=WebRtc-Node)
+### API
 
-### 2. Creating a Test File
+#### Create Participant
 
-Now right click on the folder name and select the `New File` option to create a new test file. Save it as `index.js` Now import the generated NodeJS library using the following lines of code:
+Create a new participant under this account
 
-```js
-var lib = require('lib');
+Participants are idempotent, so relevant parameters must be set in this function if desired
+
+```ts
+async createParticipant(
+  accountId: string,
+  body?: Participant,
+  requestOptions?: RequestOptions
+): Promise<ApiResponse<AccountsParticipantsResponse>>
 ```
 
-Save changes.
+##### Parameters
 
-![Create new file](https://apidocs.io/illustration/nodejs?step=createNewFile&workspaceFolder=WebRtc-Node)
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `accountId` | `string` | Template, Required | Account ID |
+| `body` | [`Participant`](#participant) | Body, Optional | Participant parameters |
+| `requestOptions` | `RequestOptions` | Optional | Pass additional request options. |
 
-![Save new file](https://apidocs.io/illustration/nodejs?step=saveNewFile&workspaceFolder=WebRtc-Node)
+##### Response Type
 
-### 3. Running The Test File
+[`AccountsParticipantsResponse`](#accounts-participants-response)
 
-To run the `index.js` file, open up the command prompt and navigate to the Path where the SDK folder resides. Type the following command to run the file:
+##### Example Usage
 
-```
-node index.js
-```
-
-![Run file](https://apidocs.io/illustration/nodejs?step=runProject&workspaceFolder=WebRtc-Node)
-
-
-## How to Test
-
-These tests use Mocha framework for testing, coupled with Chai for assertions. These dependencies need to be installed for tests to run.
-Tests can be run in a number of ways:
-
-### Method 1 (Run all tests)
-
-1. Navigate to the root directory of the SDK folder from command prompt.
-2. Type `mocha --recursive` to run all the tests.
-
-### Method 2 (Run all tests)
-
-1. Navigate to the `../test/Controllers/` directory from command prompt.
-2. Type `mocha *` to run all the tests.
-
-### Method 3 (Run specific controller's tests)
-
-1. Navigate to the `../test/Controllers/` directory from command prompt.
-2. Type `mocha  WebRtcController`  to run all the tests in that controller file.
-
-> To increase mocha's default timeout, you can change the `TEST_TIMEOUT` parameter's value in `TestBootstrap.js`.
-
-![Run Tests](https://apidocs.io/illustration/nodejs?step=runTests&controllerName=WebRtcController)
-
-## Initialization
-
-### Authentication
-In order to setup authentication in the API client, you need the following information.
-
-| Parameter | Description |
-|-----------|-------------|
-| basicAuthUserName | The username to use with basic authentication |
-| basicAuthPassword | The password to use with basic authentication |
-
-
-
-API client can be initialized as following:
-
-```JavaScript
-const lib = require('lib');
-
-// Configuration parameters and credentials
-lib.Configuration.basicAuthUserName = "basicAuthUserName"; // The username to use with basic authentication
-lib.Configuration.basicAuthPassword = "basicAuthPassword"; // The password to use with basic authentication
-
+```ts
+const accountId = 'accountId0';
+try {
+  const { result, ...httpResponse } = await apiController.createParticipant(accountId);
+  // Get more response info...
+  // const { statusCode, headers } = httpResponse;
+} catch(error) {
+  if (error instanceof ApiError) {
+    const errors = error.result;
+    // const { statusCode, headers } = error;
+  }
+}
 ```
 
+##### Errors
 
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Bad Request | `ApiError` |
+| 401 | Unauthorized | `ApiError` |
+| 403 | Access Denied | `ApiError` |
+| Default | Unexpected Error | [`Error`](#error) |
 
-# Class Reference
+#### Get Participant
 
-## <a name="list_of_controllers"></a>List of Controllers
+Get participant by ID
 
-* [APIController](#api_controller)
-
-## <a name="api_controller"></a>![Class: ](https://apidocs.io/img/class.png ".APIController") APIController
-
-### Get singleton instance
-
-The singleton instance of the ``` APIController ``` class can be accessed from the API Client.
-
-```javascript
-var controller = lib.APIController;
+```ts
+async getParticipant(
+  accountId: string,
+  participantId: string,
+  requestOptions?: RequestOptions
+): Promise<ApiResponse<Participant>>
 ```
 
-### <a name="create_participant"></a>![Method: ](https://apidocs.io/img/method.png ".APIController.createParticipant") createParticipant
+##### Parameters
 
-> Create a new participant under this account
-> 
-> Participants are idempotent, so relevant parameters must be set in this function if desired
-> 
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `accountId` | `string` | Template, Required | Account ID |
+| `participantId` | `string` | Template, Required | Participant ID |
+| `requestOptions` | `RequestOptions` | Optional | Pass additional request options. |
 
+##### Response Type
 
-```javascript
-function createParticipant(accountId, body, callback)
-```
-#### Parameters
+[`Participant`](#participant)
 
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| accountId |  ``` Required ```  | Account ID |
-| body |  ``` Optional ```  | Participant parameters |
+##### Example Usage
 
-
-
-#### Example Usage
-
-```javascript
-
-    var accountId = 'accountId';
-    var body = new Participant({"key":"value"});
-
-    controller.createParticipant(accountId, body, function(error, response, context) {
-
-    
-    });
+```ts
+const accountId = 'accountId0';
+const participantId = 'participantId0';
+try {
+  const { result, ...httpResponse } = await apiController.getParticipant(accountId, participantId);
+  // Get more response info...
+  // const { statusCode, headers } = httpResponse;
+} catch(error) {
+  if (error instanceof ApiError) {
+    const errors = error.result;
+    // const { statusCode, headers } = error;
+  }
+}
 ```
 
-#### Errors
+##### Errors
 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Bad Request |
-| 401 | Unauthorized |
-| 403 | Access Denied |
-| 0 | Unexpected Error |
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 401 | Unauthorized | `ApiError` |
+| 403 | Access Denied | `ApiError` |
+| 404 | Not Found | `ApiError` |
+| Default | Unexpected Error | [`Error`](#error) |
 
+#### Delete Participant
 
+Delete participant by ID
 
-
-### <a name="get_participant"></a>![Method: ](https://apidocs.io/img/method.png ".APIController.getParticipant") getParticipant
-
-> Get participant by ID
-
-
-```javascript
-function getParticipant(accountId, participantId, callback)
-```
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| accountId |  ``` Required ```  | Account ID |
-| participantId |  ``` Required ```  | Participant ID |
-
-
-
-#### Example Usage
-
-```javascript
-
-    var accountId = 'accountId';
-    var participantId = 'participantId';
-
-    controller.getParticipant(accountId, participantId, function(error, response, context) {
-
-    
-    });
+```ts
+async deleteParticipant(
+  accountId: string,
+  participantId: string,
+  requestOptions?: RequestOptions
+): Promise<ApiResponse<void>>
 ```
 
-#### Errors
+##### Parameters
 
-| Error Code | Error Description |
-|------------|-------------------|
-| 401 | Unauthorized |
-| 403 | Access Denied |
-| 404 | Not Found |
-| 0 | Unexpected Error |
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `accountId` | `string` | Template, Required | Account ID |
+| `participantId` | `string` | Template, Required | - |
+| `requestOptions` | `RequestOptions` | Optional | Pass additional request options. |
 
+##### Response Type
 
+`void`
 
+##### Example Usage
 
-### <a name="delete_participant"></a>![Method: ](https://apidocs.io/img/method.png ".APIController.deleteParticipant") deleteParticipant
-
-> Delete participant by ID
-
-
-```javascript
-function deleteParticipant(accountId, participantId, callback)
-```
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| accountId |  ``` Required ```  | Account ID |
-| participantId |  ``` Required ```  | TODO: Add a parameter description |
-
-
-
-#### Example Usage
-
-```javascript
-
-    var accountId = 'accountId';
-    var participantId = 'participantId';
-
-    controller.deleteParticipant(accountId, participantId, function(error, response, context) {
-
-    
-    });
+```ts
+const accountId = 'accountId0';
+const participantId = 'participantId0';
+try {
+  const { result, ...httpResponse } = await apiController.deleteParticipant(accountId, participantId);
+  // Get more response info...
+  // const { statusCode, headers } = httpResponse;
+} catch(error) {
+  if (error instanceof ApiError) {
+    const errors = error.result;
+    // const { statusCode, headers } = error;
+  }
+}
 ```
 
-#### Errors
+##### Errors
 
-| Error Code | Error Description |
-|------------|-------------------|
-| 401 | Unauthorized |
-| 403 | Access Denied |
-| 404 | Not Found |
-| 0 | Unexpected Error |
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 401 | Unauthorized | `ApiError` |
+| 403 | Access Denied | `ApiError` |
+| 404 | Not Found | `ApiError` |
+| Default | Unexpected Error | [`Error`](#error) |
 
+#### Create Session
 
+Create a new session
 
+Sessions are idempotent, so relevant parameters must be set in this function if desired
 
-### <a name="create_session"></a>![Method: ](https://apidocs.io/img/method.png ".APIController.createSession") createSession
-
-> Create a new session
-> 
-> Sessions are idempotent, so relevant parameters must be set in this function if desired
-> 
-
-
-```javascript
-function createSession(accountId, body, callback)
-```
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| accountId |  ``` Required ```  | Account ID |
-| body |  ``` Optional ```  | Session parameters |
-
-
-
-#### Example Usage
-
-```javascript
-
-    var accountId = 'accountId';
-    var body = new Session({"key":"value"});
-
-    controller.createSession(accountId, body, function(error, response, context) {
-
-    
-    });
+```ts
+async createSession(
+  accountId: string,
+  body?: Session,
+  requestOptions?: RequestOptions
+): Promise<ApiResponse<Session>>
 ```
 
-#### Errors
+##### Parameters
 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Bad Request |
-| 401 | Unauthorized |
-| 403 | Access Denied |
-| 0 | Unexpected Error |
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `accountId` | `string` | Template, Required | Account ID |
+| `body` | [`Session`](#session) | Body, Optional | Session parameters |
+| `requestOptions` | `RequestOptions` | Optional | Pass additional request options. |
 
+##### Response Type
 
+[`Session`](#session)
 
+##### Example Usage
 
-### <a name="get_session"></a>![Method: ](https://apidocs.io/img/method.png ".APIController.getSession") getSession
-
-> Get session by ID
-
-
-```javascript
-function getSession(accountId, sessionId, callback)
-```
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| accountId |  ``` Required ```  | Account ID |
-| sessionId |  ``` Required ```  | Session ID |
-
-
-
-#### Example Usage
-
-```javascript
-
-    var accountId = 'accountId';
-    var sessionId = 'sessionId';
-
-    controller.getSession(accountId, sessionId, function(error, response, context) {
-
-    
-    });
+```ts
+const accountId = 'accountId0';
+try {
+  const { result, ...httpResponse } = await apiController.createSession(accountId);
+  // Get more response info...
+  // const { statusCode, headers } = httpResponse;
+} catch(error) {
+  if (error instanceof ApiError) {
+    const errors = error.result;
+    // const { statusCode, headers } = error;
+  }
+}
 ```
 
-#### Errors
+##### Errors
 
-| Error Code | Error Description |
-|------------|-------------------|
-| 401 | Unauthorized |
-| 403 | Access Denied |
-| 404 | Not Found |
-| 0 | Unexpected Error |
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Bad Request | `ApiError` |
+| 401 | Unauthorized | `ApiError` |
+| 403 | Access Denied | `ApiError` |
+| Default | Unexpected Error | [`Error`](#error) |
 
+#### Get Session
 
+Get session by ID
 
-
-### <a name="delete_session"></a>![Method: ](https://apidocs.io/img/method.png ".APIController.deleteSession") deleteSession
-
-> Delete session by ID
-
-
-```javascript
-function deleteSession(accountId, sessionId, callback)
-```
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| accountId |  ``` Required ```  | Account ID |
-| sessionId |  ``` Required ```  | Session ID |
-
-
-
-#### Example Usage
-
-```javascript
-
-    var accountId = 'accountId';
-    var sessionId = 'sessionId';
-
-    controller.deleteSession(accountId, sessionId, function(error, response, context) {
-
-    
-    });
+```ts
+async getSession(
+  accountId: string,
+  sessionId: string,
+  requestOptions?: RequestOptions
+): Promise<ApiResponse<Session>>
 ```
 
-#### Errors
+##### Parameters
 
-| Error Code | Error Description |
-|------------|-------------------|
-| 401 | Unauthorized |
-| 403 | Access Denied |
-| 404 | Not Found |
-| 0 | Unexpected Error |
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `accountId` | `string` | Template, Required | Account ID |
+| `sessionId` | `string` | Template, Required | Session ID |
+| `requestOptions` | `RequestOptions` | Optional | Pass additional request options. |
 
+##### Response Type
 
+[`Session`](#session)
 
+##### Example Usage
 
-### <a name="list_session_participants"></a>![Method: ](https://apidocs.io/img/method.png ".APIController.listSessionParticipants") listSessionParticipants
-
-> List participants in a session
-
-
-```javascript
-function listSessionParticipants(accountId, sessionId, callback)
-```
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| accountId |  ``` Required ```  | Account ID |
-| sessionId |  ``` Required ```  | Session ID |
-
-
-
-#### Example Usage
-
-```javascript
-
-    var accountId = 'accountId';
-    var sessionId = 'sessionId';
-
-    controller.listSessionParticipants(accountId, sessionId, function(error, response, context) {
-
-    
-    });
+```ts
+const accountId = 'accountId0';
+const sessionId = 'sessionId8';
+try {
+  const { result, ...httpResponse } = await apiController.getSession(accountId, sessionId);
+  // Get more response info...
+  // const { statusCode, headers } = httpResponse;
+} catch(error) {
+  if (error instanceof ApiError) {
+    const errors = error.result;
+    // const { statusCode, headers } = error;
+  }
+}
 ```
 
-#### Errors
+##### Errors
 
-| Error Code | Error Description |
-|------------|-------------------|
-| 401 | Unauthorized |
-| 403 | Access Denied |
-| 404 | Not Found |
-| 0 | Unexpected Error |
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 401 | Unauthorized | `ApiError` |
+| 403 | Access Denied | `ApiError` |
+| 404 | Not Found | `ApiError` |
+| Default | Unexpected Error | [`Error`](#error) |
 
+#### Delete Session
 
+Delete session by ID
 
-
-### <a name="add_participant_to_session"></a>![Method: ](https://apidocs.io/img/method.png ".APIController.addParticipantToSession") addParticipantToSession
-
-> Add a participant to a session
-> 
-> Subscriptions can optionally be provided as part of this call
-> 
-
-
-```javascript
-function addParticipantToSession(accountId, sessionId, participantId, body, callback)
-```
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| accountId |  ``` Required ```  | Account ID |
-| sessionId |  ``` Required ```  | Session ID |
-| participantId |  ``` Required ```  | Participant ID |
-| body |  ``` Optional ```  | Subscriptions the participant should be created with |
-
-
-
-#### Example Usage
-
-```javascript
-
-    var accountId = 'accountId';
-    var sessionId = 'sessionId';
-    var participantId = 'participantId';
-    var body = new Subscriptions({"key":"value"});
-
-    controller.addParticipantToSession(accountId, sessionId, participantId, body, function(error, response, context) {
-
-    
-    });
+```ts
+async deleteSession(
+  accountId: string,
+  sessionId: string,
+  requestOptions?: RequestOptions
+): Promise<ApiResponse<void>>
 ```
 
-#### Errors
+##### Parameters
 
-| Error Code | Error Description |
-|------------|-------------------|
-| 401 | Unauthorized |
-| 403 | Access Denied |
-| 404 | Not Found |
-| 0 | Unexpected Error |
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `accountId` | `string` | Template, Required | Account ID |
+| `sessionId` | `string` | Template, Required | Session ID |
+| `requestOptions` | `RequestOptions` | Optional | Pass additional request options. |
 
+##### Response Type
 
+`void`
 
+##### Example Usage
 
-### <a name="remove_participant_from_session"></a>![Method: ](https://apidocs.io/img/method.png ".APIController.removeParticipantFromSession") removeParticipantFromSession
-
-> Remove a participant from a session
-> 
-> This will automatically remove any subscriptions the participant has associated with this session
-> 
-
-
-```javascript
-function removeParticipantFromSession(accountId, participantId, sessionId, callback)
-```
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| accountId |  ``` Required ```  | Account ID |
-| participantId |  ``` Required ```  | Participant ID |
-| sessionId |  ``` Required ```  | Session ID |
-
-
-
-#### Example Usage
-
-```javascript
-
-    var accountId = 'accountId';
-    var participantId = 'participantId';
-    var sessionId = 'sessionId';
-
-    controller.removeParticipantFromSession(accountId, participantId, sessionId, function(error, response, context) {
-
-    
-    });
+```ts
+const accountId = 'accountId0';
+const sessionId = 'sessionId8';
+try {
+  const { result, ...httpResponse } = await apiController.deleteSession(accountId, sessionId);
+  // Get more response info...
+  // const { statusCode, headers } = httpResponse;
+} catch(error) {
+  if (error instanceof ApiError) {
+    const errors = error.result;
+    // const { statusCode, headers } = error;
+  }
+}
 ```
 
-#### Errors
+##### Errors
 
-| Error Code | Error Description |
-|------------|-------------------|
-| 401 | Unauthorized |
-| 403 | Access Denied |
-| 404 | Not Found |
-| 0 | Unexpected Error |
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 401 | Unauthorized | `ApiError` |
+| 403 | Access Denied | `ApiError` |
+| 404 | Not Found | `ApiError` |
+| Default | Unexpected Error | [`Error`](#error) |
 
+#### List Session Participants
 
+List participants in a session
 
-
-### <a name="get_participant_subscriptions"></a>![Method: ](https://apidocs.io/img/method.png ".APIController.getParticipantSubscriptions") getParticipantSubscriptions
-
-> Get a participant's subscriptions
-
-
-```javascript
-function getParticipantSubscriptions(accountId, participantId, sessionId, callback)
-```
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| accountId |  ``` Required ```  | Account ID |
-| participantId |  ``` Required ```  | Participant ID |
-| sessionId |  ``` Required ```  | Session ID |
-
-
-
-#### Example Usage
-
-```javascript
-
-    var accountId = 'accountId';
-    var participantId = 'participantId';
-    var sessionId = 'sessionId';
-
-    controller.getParticipantSubscriptions(accountId, participantId, sessionId, function(error, response, context) {
-
-    
-    });
+```ts
+async listSessionParticipants(
+  accountId: string,
+  sessionId: string,
+  requestOptions?: RequestOptions
+): Promise<ApiResponse<Participant[]>>
 ```
 
-#### Errors
+##### Parameters
 
-| Error Code | Error Description |
-|------------|-------------------|
-| 401 | Unauthorized |
-| 403 | Access Denied |
-| 404 | Not Found |
-| 0 | Unexpected Error |
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `accountId` | `string` | Template, Required | Account ID |
+| `sessionId` | `string` | Template, Required | Session ID |
+| `requestOptions` | `RequestOptions` | Optional | Pass additional request options. |
 
+##### Response Type
 
+[`Participant[]`](#participant)
 
+##### Example Usage
 
-### <a name="update_participant_subscriptions"></a>![Method: ](https://apidocs.io/img/method.png ".APIController.updateParticipantSubscriptions") updateParticipantSubscriptions
-
-> Update a participant's subscriptions
-> 
-> This is a full update that will replace the participant's subscriptions. First call `getParticipantSubscriptions` if you need the current subscriptions. Call this function with no `Subscriptions` object to remove all subscriptions
-> 
-
-
-```javascript
-function updateParticipantSubscriptions(accountId, participantId, sessionId, body, callback)
-```
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| accountId |  ``` Required ```  | Account ID |
-| participantId |  ``` Required ```  | Participant ID |
-| sessionId |  ``` Required ```  | Session ID |
-| body |  ``` Optional ```  | Initial state |
-
-
-
-#### Example Usage
-
-```javascript
-
-    var accountId = 'accountId';
-    var participantId = 'participantId';
-    var sessionId = 'sessionId';
-    var body = new Subscriptions({"key":"value"});
-
-    controller.updateParticipantSubscriptions(accountId, participantId, sessionId, body, function(error, response, context) {
-
-    
-    });
+```ts
+const accountId = 'accountId0';
+const sessionId = 'sessionId8';
+try {
+  const { result, ...httpResponse } = await apiController.listSessionParticipants(accountId, sessionId);
+  // Get more response info...
+  // const { statusCode, headers } = httpResponse;
+} catch(error) {
+  if (error instanceof ApiError) {
+    const errors = error.result;
+    // const { statusCode, headers } = error;
+  }
+}
 ```
 
-#### Errors
+##### Errors
 
-| Error Code | Error Description |
-|------------|-------------------|
-| 400 | Bad Request |
-| 401 | Unauthorized |
-| 403 | Access Denied |
-| 404 | Not Found |
-| 0 | Unexpected Error |
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 401 | Unauthorized | `ApiError` |
+| 403 | Access Denied | `ApiError` |
+| 404 | Not Found | `ApiError` |
+| Default | Unexpected Error | [`Error`](#error) |
 
+#### Add Participant to Session
 
+Add a participant to a session
 
+Subscriptions can optionally be provided as part of this call
 
-### <a name="generate_transfer_bxml"></a>![Method: ](https://apidocs.io/img/method.png ".APIController.generateTransferBxml") generateTransferBxml
-
-> Generates BXML to transfer a call into a WebRTC session as a complete response, including an XML declaration header.
-
-```javascript
-function generateTransferBxml(deviceToken, sipUri)
-```
-#### Parameters
-
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| deviceToken |  ``` Required ```  | deviceToken Token returned from createParticipant call |
-| sipUri |  ``` Optional ```  | [sipUri=sip:sipx.webrtc.bandwidth.com:5060] SIP URL to transfer to |
-
-#### Return
-
-| Description |
-|-----------|
-| BXML string |
-
-#### Example Usage
-
-```javascript
-    var deviceToken = 'deviceToken';
-    var sipUri = 'sipUri';
-
-    var bxml = controller.generateTransferBxml(deviceToken, sipUri);
+```ts
+async addParticipantToSession(
+  accountId: string,
+  sessionId: string,
+  participantId: string,
+  body?: Subscriptions,
+  requestOptions?: RequestOptions
+): Promise<ApiResponse<void>>
 ```
 
-### <a name="generate_transfer_bxml_verb"></a>![Method: ](https://apidocs.io/img/method.png ".APIController.generateTransferBxmlVerb") generateTransferBxmlVerb
+##### Parameters
 
-> Generates the BXML verb to transfer a call into a WebRTC session (not wrapped in a Response element).
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `accountId` | `string` | Template, Required | Account ID |
+| `sessionId` | `string` | Template, Required | Session ID |
+| `participantId` | `string` | Template, Required | Participant ID |
+| `body` | [`Subscriptions`](#subscriptions) | Body, Optional | Subscriptions the participant should be created with |
+| `requestOptions` | `RequestOptions` | Optional | Pass additional request options. |
 
-```javascript
-function generateTransferBxmlVerb(deviceToken, sipUri)
+##### Response Type
+
+`void`
+
+##### Example Usage
+
+```ts
+const accountId = 'accountId0';
+const sessionId = 'sessionId8';
+const participantId = 'participantId0';
+const body: Subscriptions = {
+  sessionId: 'd8886aad-b956-4e1b-b2f4-d7c9f8162772',
+};
+
+try {
+  const { result, ...httpResponse } = await apiController.addParticipantToSession(accountId, sessionId, participantId, body);
+  // Get more response info...
+  // const { statusCode, headers } = httpResponse;
+} catch(error) {
+  if (error instanceof ApiError) {
+    const errors = error.result;
+    // const { statusCode, headers } = error;
+  }
+}
 ```
-#### Parameters
 
-| Parameter | Tags | Description |
-|-----------|------|-------------|
-| deviceToken |  ``` Required ```  | deviceToken Token returned from createParticipant call |
-| sipUri |  ``` Optional ```  | [sipUri=sip:sipx.webrtc.bandwidth.com:5060] SIP URL to transfer to |
+##### Errors
 
-#### Return
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 401 | Unauthorized | `ApiError` |
+| 403 | Access Denied | `ApiError` |
+| 404 | Not Found | `ApiError` |
+| Default | Unexpected Error | [`Error`](#error) |
 
-| Description |
-|-----------|
-| BXML string |
+#### Remove Participant From Session
 
-#### Example Usage
+Remove a participant from a session
 
-```javascript
-    var deviceToken = 'deviceToken';
-    var sipUri = 'sipUri';
+This will automatically remove any subscriptions the participant has associated with this session
 
-    var bxmlVerb = controller.generateTransferBxmlVerb(deviceToken, sipUri);
+```ts
+async removeParticipantFromSession(
+  accountId: string,
+  participantId: string,
+  sessionId: string,
+  requestOptions?: RequestOptions
+): Promise<ApiResponse<void>>
 ```
 
+##### Parameters
 
-[Back to List of Controllers](#list_of_controllers)
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `accountId` | `string` | Template, Required | Account ID |
+| `participantId` | `string` | Template, Required | Participant ID |
+| `sessionId` | `string` | Template, Required | Session ID |
+| `requestOptions` | `RequestOptions` | Optional | Pass additional request options. |
 
+##### Response Type
 
+`void`
+
+##### Example Usage
+
+```ts
+const accountId = 'accountId0';
+const participantId = 'participantId0';
+const sessionId = 'sessionId8';
+try {
+  const { result, ...httpResponse } = await apiController.removeParticipantFromSession(accountId, participantId, sessionId);
+  // Get more response info...
+  // const { statusCode, headers } = httpResponse;
+} catch(error) {
+  if (error instanceof ApiError) {
+    const errors = error.result;
+    // const { statusCode, headers } = error;
+  }
+}
+```
+
+##### Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 401 | Unauthorized | `ApiError` |
+| 403 | Access Denied | `ApiError` |
+| 404 | Not Found | `ApiError` |
+| Default | Unexpected Error | [`Error`](#error) |
+
+#### Get Participant Subscriptions
+
+Get a participant's subscriptions
+
+```ts
+async getParticipantSubscriptions(
+  accountId: string,
+  participantId: string,
+  sessionId: string,
+  requestOptions?: RequestOptions
+): Promise<ApiResponse<Subscriptions>>
+```
+
+##### Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `accountId` | `string` | Template, Required | Account ID |
+| `participantId` | `string` | Template, Required | Participant ID |
+| `sessionId` | `string` | Template, Required | Session ID |
+| `requestOptions` | `RequestOptions` | Optional | Pass additional request options. |
+
+##### Response Type
+
+[`Subscriptions`](#subscriptions)
+
+##### Example Usage
+
+```ts
+const accountId = 'accountId0';
+const participantId = 'participantId0';
+const sessionId = 'sessionId8';
+try {
+  const { result, ...httpResponse } = await apiController.getParticipantSubscriptions(accountId, participantId, sessionId);
+  // Get more response info...
+  // const { statusCode, headers } = httpResponse;
+} catch(error) {
+  if (error instanceof ApiError) {
+    const errors = error.result;
+    // const { statusCode, headers } = error;
+  }
+}
+```
+
+##### Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 401 | Unauthorized | `ApiError` |
+| 403 | Access Denied | `ApiError` |
+| 404 | Not Found | `ApiError` |
+| Default | Unexpected Error | [`Error`](#error) |
+
+#### Update Participant Subscriptions
+
+Update a participant's subscriptions
+
+This is a full update that will replace the participant's subscriptions. First call `getParticipantSubscriptions` if you need the current subscriptions. Call this function with no `Subscriptions` object to remove all subscriptions
+
+```ts
+async updateParticipantSubscriptions(
+  accountId: string,
+  participantId: string,
+  sessionId: string,
+  body?: Subscriptions,
+  requestOptions?: RequestOptions
+): Promise<ApiResponse<void>>
+```
+
+##### Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `accountId` | `string` | Template, Required | Account ID |
+| `participantId` | `string` | Template, Required | Participant ID |
+| `sessionId` | `string` | Template, Required | Session ID |
+| `body` | [`Subscriptions`](#subscriptions) | Body, Optional | Initial state |
+| `requestOptions` | `RequestOptions` | Optional | Pass additional request options. |
+
+##### Response Type
+
+`void`
+
+##### Example Usage
+
+```ts
+const accountId = 'accountId0';
+const participantId = 'participantId0';
+const sessionId = 'sessionId8';
+const body: Subscriptions = {
+  sessionId: 'd8886aad-b956-4e1b-b2f4-d7c9f8162772',
+};
+
+try {
+  const { result, ...httpResponse } = await apiController.updateParticipantSubscriptions(accountId, participantId, sessionId, body);
+  // Get more response info...
+  // const { statusCode, headers } = httpResponse;
+} catch(error) {
+  if (error instanceof ApiError) {
+    const errors = error.result;
+    // const { statusCode, headers } = error;
+  }
+}
+```
+
+##### Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Bad Request | `ApiError` |
+| 401 | Unauthorized | `ApiError` |
+| 403 | Access Denied | `ApiError` |
+| 404 | Not Found | `ApiError` |
+| Default | Unexpected Error | [`Error`](#error) |
+
+## Model Reference
+
+### Structures
+
+* [Session](#session)
+* [Participant](#participant)
+* [Subscriptions](#subscriptions)
+* [Participant Subscription](#participant-subscription)
+* [Accounts Participants Response](#accounts-participants-response)
+
+#### Session
+
+A session object
+
+##### Class Name
+
+`Session`
+
+##### Fields
+
+| Name | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `id` | `string` | Optional | Unique id of the session |
+| `tag` | `string` | Optional | User defined tag to associate with the session |
+
+##### Example (as JSON)
+
+```json
+{
+  "id": null,
+  "tag": null
+}
+```
+
+#### Participant
+
+A participant object
+
+##### Class Name
+
+`Participant`
+
+##### Fields
+
+| Name | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `id` | `string` | Optional | Unique id of the participant |
+| `callbackUrl` | `string` | Optional | Full callback url to use for notifications about this participant |
+| `publishPermissions` | [`PublishPermissionEnum[]`](#publish-permission) | Optional | Defines if this participant can publish audio or video<br>**Constraints**: *Unique Items Required* |
+| `sessions` | `string[]` | Optional | List of session ids this participant is associated with<br><br>Capped to one |
+| `subscriptions` | [`Subscriptions`](#subscriptions) | Optional | - |
+| `tag` | `string` | Optional | User defined tag to associate with the participant |
+
+##### Example (as JSON)
+
+```json
+{
+  "id": null,
+  "callbackUrl": null,
+  "publishPermissions": null,
+  "sessions": null,
+  "subscriptions": null,
+  "tag": null
+}
+```
+
+#### Subscriptions
+
+##### Class Name
+
+`Subscriptions`
+
+##### Fields
+
+| Name | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `sessionId` | `string` |  | Session the subscriptions are associated with<br><br>If this is the only field, the subscriber will be subscribed to all participants in the session (including any participants that are later added to the session) |
+| `participants` | [`ParticipantSubscription[]`](#participant-subscription) | Optional | Subset of participants to subscribe to in the session. Optional. |
+
+##### Example (as JSON)
+
+```json
+{
+  "sessionId": "d8886aad-b956-4e1b-b2f4-d7c9f8162772"
+}
+```
+
+#### Participant Subscription
+
+##### Class Name
+
+`ParticipantSubscription`
+
+##### Fields
+
+| Name | Type | Description |
+|  --- | --- | --- |
+| `participantId` | `string` | Participant the subscriber should be subscribed to |
+
+##### Example (as JSON)
+
+```json
+{
+  "participantId": "568749d5-04d5-483d-adf5-deac7dd3d521"
+}
+```
+
+#### Accounts Participants Response
+
+##### Class Name
+
+`AccountsParticipantsResponse`
+
+##### Fields
+
+| Name | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `participant` | [`Participant`](#participant) | Optional | A participant object |
+| `token` | `string` | Optional | Auth token for the returned participant<br><br>This should be passed to the participant so that they can connect to the platform |
+
+##### Example (as JSON)
+
+```json
+{
+  "participant": null,
+  "token": null
+}
+```
+
+### Enumerations
+
+* [Publish Permission](#publish-permission)
+
+#### Publish Permission
+
+##### Class Name
+
+`PublishPermissionEnum`
+
+##### Fields
+
+| Name |
+|  --- |
+| `aUDIO` |
+| `vIDEO` |
+
+### Exceptions
+
+* [Error](#error)
+
+#### Error
+
+##### Class Name
+
+`Error`
+
+##### Fields
+
+| Name | Type | Description |
+|  --- | --- | --- |
+| `code` | `number` | - |
+| `message` | `string` | - |
+
+##### Example (as JSON)
+
+```json
+{
+  "code": null,
+  "message": "There was an unexpected error"
+}
+```
 
