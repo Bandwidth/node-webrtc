@@ -27,8 +27,8 @@ jobs:
           git remote add gh-origin https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
           npm version ${MAJOR_MINOR_SEMVER} --force -m "Bump version to %s"
           git push gh-origin HEAD:main --tags
-          echo "//registry.npmjs.org/:_authToken=$NPM_API_TOKEN" >> ~/.npmrc
+          echo "//registry.npmjs.org/:_authToken=$NPM_AUTH_TOKEN" >> ~/.npmrc
           npm publish --access public
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_API_TOKEN: ${{ secrets.NPM_API_TOKEN }}
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
