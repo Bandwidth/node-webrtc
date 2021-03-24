@@ -67,3 +67,7 @@ body.tag = 'participant1';
 const response = await participantsController.createParticipant(accountId, body);
 console.log(response.result.participant.id);
 ```
+
+## Bandwidth's WebRtc References
+
+Please visit our [WebRtc home page](https://dev.bandwidth.com/webrtc/about.html) for more information on Bandwidth's WebRtc platform.
