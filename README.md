@@ -60,9 +60,10 @@ const client = new Client({
 const participantsController = new ParticipantsController(client);
 const accountId = 'accountId0';
 
-const body: Participant = {};
-body.callbackUrl = 'https://example.com/callback';
-body.tag = 'participant1';
+const body: Participant = {
+  callbackUrl: 'https://example.com/callback',
+  tag: 'participant1'
+};
 
 const response = await participantsController.createParticipant(accountId, body);
 console.log(response.result.participant.id);
