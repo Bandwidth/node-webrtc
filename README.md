@@ -1,4 +1,4 @@
-# Bandwidth WebRtc
+# Bandwidth WebRTC
 
 ## Installation
 
