@@ -33,7 +33,6 @@ const client = new Client({
 const sessionsController = new SessionsController(client);
 const accountId = 'accountId0';
 const body: Session = {
-  id: '75c21163-e110-41bc-bd76-1bb428ec85d5',
   tag: 'session1'
 };
 
