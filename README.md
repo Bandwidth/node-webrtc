@@ -12,7 +12,7 @@ npm install @bandwidth/webrtc
 
 The following code will initialize the SDK client.
 
-```
+```typescript
 import {
   Client
 } from '@bandwidth/webrtc';
