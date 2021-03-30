@@ -44,7 +44,7 @@ console.log(response.result.id);
 
 ## Create Participant
 
-```
+```typescript
 import {
   Client,
   Participant,
