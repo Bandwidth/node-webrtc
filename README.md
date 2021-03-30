@@ -25,7 +25,7 @@ const client = new Client({
 
 ## Create Session
 
-```
+```typescript
 import { Client, Session, SessionsController } from '@bandwidth/webrtc';
 
 const client = new Client({
