@@ -34,9 +34,10 @@ const client = new Client({
 })
 const sessionsController = new SessionsController(client);
 const accountId = 'accountId0';
-const body: Session = {};
-body.id = '75c21163-e110-41bc-bd76-1bb428ec85d5';
-body.tag = 'session1';
+const body: Session = {
+  id: '75c21163-e110-41bc-bd76-1bb428ec85d5',
+  tag: 'session1'
+};
 
 const response = await sessionsController.createSession(accountId, body);
 console.log(response.result.id);
