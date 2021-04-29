@@ -24,19 +24,19 @@ const client = new Client({
 ## Create Session
 
 ```typescript
-import { Client, Session, SessionsController } from '@bandwidth/webrtc';
+import { Client, Session, ApiController } from '@bandwidth/webrtc';
 
 const client = new Client({
   basicAuthUserName: 'user',
   basicAuthPassword: 'pass',
 })
-const sessionsController = new SessionsController(client);
+const controller = new ApiController(client);
 const accountId = 'accountId0';
 const body: Session = {
   tag: 'session1'
 };
 
-const response = await sessionsController.createSession(accountId, body);
+const response = await controller.createSession(accountId, body);
 console.log(response.result.id);
 ```
 
@@ -46,7 +46,7 @@ console.log(response.result.id);
 import {
   Client,
   Participant,
-  ParticipantsController,
+  ApiController,
   ParticipantSubscription,
   Subscriptions,
 } from '@bandwidth/webrtc';
@@ -55,15 +55,16 @@ const client = new Client({
   basicAuthUserName: 'user',
   basicAuthPassword: 'pass',
 })
-const participantsController = new ParticipantsController(client);
+const controller = new ApiController(client);
 const accountId = 'accountId0';
 
 const body: Participant = {
   callbackUrl: 'https://example.com/callback',
-  tag: 'participant1'
+  tag: 'participant1',
+  deviceApiVersion: 'v3'
 };
 
-const response = await participantsController.createParticipant(accountId, body);
+const response = await controller.createParticipant(accountId, body);
 console.log(response.result.participant.id);
 ```
 
