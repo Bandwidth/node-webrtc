@@ -15,13 +15,13 @@ export interface Subscriptions {
    * Session the subscriptions are associated with
    * If this is the only field, the subscriber will be subscribed to all participants in the session (including any participants that are later added to the session)
    */
-  sessionId: string;
+  sessionId?: string;
   /** Subset of participants to subscribe to in the session. Optional. */
   participants?: ParticipantSubscription[];
 }
 
 export const subscriptionsSchema: Schema<Subscriptions> = object({
-  sessionId: ['sessionId', string()],
+  sessionId: ['sessionId', optional(string())],
   participants: [
     'participants',
     optional(array(lazy(() => participantSubscriptionSchema))),

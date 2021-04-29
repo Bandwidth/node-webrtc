@@ -27,6 +27,9 @@ export interface Participant {
   subscriptions?: Subscriptions;
   /** User defined tag to associate with the participant */
   tag?: string;
+  /** Optional field to define the device api version of this participant */
+  //deviceApiVersion?: DeviceApiVersionEnum;
+  deviceApiVersion?: string;
 }
 
 export const participantSchema: Schema<Participant> = object({
@@ -39,4 +42,5 @@ export const participantSchema: Schema<Participant> = object({
   sessions: ['sessions', optional(array(string()))],
   subscriptions: ['subscriptions', optional(lazy(() => subscriptionsSchema))],
   tag: ['tag', optional(string())],
+  deviceApiVersion: ['deviceApiVersion', optional(string())],
 });

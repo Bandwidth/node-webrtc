@@ -17,6 +17,7 @@ export * from './errors/argumentsValidationError';
 export * from './errors/responseValidationError';
 export * from './errors/apiError';
 export { AccountsParticipantsResponse } from './models/accountsParticipantsResponse';
+export { DeviceApiVersionEnum } from './models/deviceApiVersionEnum';
 export { Participant } from './models/participant';
 export { ParticipantSubscription } from './models/participantSubscription';
 export { PublishPermissionEnum } from './models/publishPermissionEnum';
