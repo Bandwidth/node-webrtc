@@ -321,4 +321,34 @@ export class ApiController extends BaseController {
     req.throwOn(404, ApiError, 'Not Found');
     return req.call(requestOptions);
   }
+
+  /**
+   * Generates BXML to transfer a call into a WebRTC session as a complete response, including an XML declaration
+   * header.
+   *
+   * @param {string} deviceToken Token returned from createParticipant call
+   * @param {string} [sipUri=sip:sipx.webrtc.bandwidth.com:5060] SIP URL to transfer to
+   *
+   * @returns BXML string
+   */
+  static generateTransferBxml(deviceToken: string, sipUri='sip:sipx.webrtc.bandwidth.com:5060'): string {
+    return '<?xml version="1.0" encoding="UTF-8" ?>\n'
+        + '<Response>'
+        + this.generateTransferBxmlVerb(deviceToken, sipUri)
+        + '</Response>';
+  }
+
+  /**
+   * Generates the BXML verb to transfer a call into a WebRTC session (not wrapped in a Response element).
+   *
+   * @param {string} deviceToken Token returned from createParticipant call
+   * @param {string} [sipUri=sip:sipx.webrtc.bandwidth.com:5060] SIP URL to transfer to
+   *
+   * @returns BXML string
+   */
+  static generateTransferBxmlVerb(deviceToken: string, sipUri = 'sip:sipx.webrtc.bandwidth.com:5060'): string {
+    return '<Transfer>\n'
+        + `\t<SipUri uui="${deviceToken};encoding=jwt">${sipUri}</SipUri>\n`
+        + '</Transfer>';
+  }
 }
