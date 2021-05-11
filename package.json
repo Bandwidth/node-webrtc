@@ -26,7 +26,7 @@
   },
   "name": "@bandwidth/webrtc",
   "description": "Bandwidth WebRTC API",
-  "author": "APIMATIC SDK Generator",
+  "author": "Bandwidth Edge Services",
   "devDependencies": {
     "@types/detect-node": "^2.0.0",
     "@types/json-bigint": "^1.0.0",
