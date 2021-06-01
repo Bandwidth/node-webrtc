@@ -7,7 +7,6 @@
 import { ApiError } from '@apimatic/core';
 import { BaseController } from './baseController';
 import { ApiResponse, RequestOptions, SkipEncode } from '../core';
-import { ErrorError } from '../errors/errorError';
 import {
   AccountsParticipantsResponse,
   accountsParticipantsResponseSchema,
@@ -44,7 +43,6 @@ export class ApiController extends BaseController {
     req.throwOn(400, ApiError, 'Bad Request');
     req.throwOn(401, ApiError, 'Unauthorized');
     req.throwOn(403, ApiError, 'Access Denied');
-    req.defaultToError(ErrorError);
     return req.callAsJson(accountsParticipantsResponseSchema, requestOptions);
   }
 
@@ -70,7 +68,6 @@ export class ApiController extends BaseController {
     req.throwOn(401, ApiError, 'Unauthorized');
     req.throwOn(403, ApiError, 'Access Denied');
     req.throwOn(404, ApiError, 'Not Found');
-    req.defaultToError(ErrorError);
     return req.callAsJson(participantSchema, requestOptions);
   }
 
@@ -96,7 +93,6 @@ export class ApiController extends BaseController {
     req.throwOn(401, ApiError, 'Unauthorized');
     req.throwOn(403, ApiError, 'Access Denied');
     req.throwOn(404, ApiError, 'Not Found');
-    req.defaultToError(ErrorError);
     return req.call(requestOptions);
   }
 
@@ -126,7 +122,6 @@ export class ApiController extends BaseController {
     req.throwOn(400, ApiError, 'Bad Request');
     req.throwOn(401, ApiError, 'Unauthorized');
     req.throwOn(403, ApiError, 'Access Denied');
-    req.defaultToError(ErrorError);
     return req.callAsJson(sessionSchema, requestOptions);
   }
 
@@ -152,7 +147,6 @@ export class ApiController extends BaseController {
     req.throwOn(401, ApiError, 'Unauthorized');
     req.throwOn(403, ApiError, 'Access Denied');
     req.throwOn(404, ApiError, 'Not Found');
-    req.defaultToError(ErrorError);
     return req.callAsJson(sessionSchema, requestOptions);
   }
 
@@ -178,7 +172,6 @@ export class ApiController extends BaseController {
     req.throwOn(401, ApiError, 'Unauthorized');
     req.throwOn(403, ApiError, 'Access Denied');
     req.throwOn(404, ApiError, 'Not Found');
-    req.defaultToError(ErrorError);
     return req.call(requestOptions);
   }
 
@@ -204,7 +197,6 @@ export class ApiController extends BaseController {
     req.throwOn(401, ApiError, 'Unauthorized');
     req.throwOn(403, ApiError, 'Access Denied');
     req.throwOn(404, ApiError, 'Not Found');
-    req.defaultToError(ErrorError);
     return req.callAsJson(array(participantSchema), requestOptions);
   }
 
@@ -240,7 +232,6 @@ export class ApiController extends BaseController {
     req.throwOn(401, ApiError, 'Unauthorized');
     req.throwOn(403, ApiError, 'Access Denied');
     req.throwOn(404, ApiError, 'Not Found');
-    req.defaultToError(ErrorError);
     return req.call(requestOptions);
   }
 
@@ -272,7 +263,6 @@ export class ApiController extends BaseController {
     req.throwOn(401, ApiError, 'Unauthorized');
     req.throwOn(403, ApiError, 'Access Denied');
     req.throwOn(404, ApiError, 'Not Found');
-    req.defaultToError(ErrorError);
     return req.call(requestOptions);
   }
 
@@ -301,7 +291,6 @@ export class ApiController extends BaseController {
     req.throwOn(401, ApiError, 'Unauthorized');
     req.throwOn(403, ApiError, 'Access Denied');
     req.throwOn(404, ApiError, 'Not Found');
-    req.defaultToError(ErrorError);
     return req.callAsJson(subscriptionsSchema, requestOptions);
   }
 
@@ -340,7 +329,6 @@ export class ApiController extends BaseController {
     req.throwOn(401, ApiError, 'Unauthorized');
     req.throwOn(403, ApiError, 'Access Denied');
     req.throwOn(404, ApiError, 'Not Found');
-    req.defaultToError(ErrorError);
     return req.call(requestOptions);
   }
 }
