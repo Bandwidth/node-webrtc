@@ -4,6 +4,7 @@ on:
   pull_request:
     branches:
       - main
+      - 'webrtc-2021-summer-release'
 
 jobs:
   deploy:
