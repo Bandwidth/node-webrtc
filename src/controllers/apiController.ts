@@ -6,7 +6,7 @@
 
 import { ApiError } from '@apimatic/core';
 import { BaseController } from './baseController';
-import { ApiResponse, RequestOptions, SkipEncode } from '../core';
+import { ApiResponse, RequestOptions} from '../core';
 import {
   AccountsParticipantsResponse,
   accountsParticipantsResponseSchema,
@@ -39,7 +39,7 @@ export class ApiController extends BaseController {
       body: [body, optional(participantSchema)],
     });
     req.json(mapped.body);
-    req.appendTemplatePath`/accounts/${new SkipEncode(mapped.accountId)}/participants`;
+    req.appendTemplatePath`/accounts/${mapped.accountId}/participants`;
     req.throwOn(400, ApiError, 'Bad Request');
     req.throwOn(401, ApiError, 'Unauthorized');
     req.throwOn(403, ApiError, 'Access Denied');
@@ -64,7 +64,7 @@ export class ApiController extends BaseController {
       accountId: [accountId, string()],
       participantId: [participantId, string()],
     });
-    req.appendTemplatePath`/accounts/${new SkipEncode(mapped.accountId)}/participants/${new SkipEncode(mapped.participantId)}`;
+    req.appendTemplatePath`/accounts/${mapped.accountId}/participants/${mapped.participantId}`;
     req.throwOn(401, ApiError, 'Unauthorized');
     req.throwOn(403, ApiError, 'Access Denied');
     req.throwOn(404, ApiError, 'Not Found');
@@ -89,7 +89,7 @@ export class ApiController extends BaseController {
       accountId: [accountId, string()],
       participantId: [participantId, string()],
     });
-    req.appendTemplatePath`/accounts/${new SkipEncode(mapped.accountId)}/participants/${new SkipEncode(mapped.participantId)}`;
+    req.appendTemplatePath`/accounts/${mapped.accountId}/participants/${mapped.participantId}`;
     req.throwOn(401, ApiError, 'Unauthorized');
     req.throwOn(403, ApiError, 'Access Denied');
     req.throwOn(404, ApiError, 'Not Found');
@@ -118,7 +118,7 @@ export class ApiController extends BaseController {
       body: [body, optional(sessionSchema)],
     });
     req.json(mapped.body);
-    req.appendTemplatePath`/accounts/${new SkipEncode(mapped.accountId)}/sessions`;
+    req.appendTemplatePath`/accounts/${mapped.accountId}/sessions`;
     req.throwOn(400, ApiError, 'Bad Request');
     req.throwOn(401, ApiError, 'Unauthorized');
     req.throwOn(403, ApiError, 'Access Denied');
@@ -143,7 +143,7 @@ export class ApiController extends BaseController {
       accountId: [accountId, string()],
       sessionId: [sessionId, string()],
     });
-    req.appendTemplatePath`/accounts/${new SkipEncode(mapped.accountId)}/sessions/${new SkipEncode(mapped.sessionId)}`;
+    req.appendTemplatePath`/accounts/${mapped.accountId}/sessions/${mapped.sessionId}`;
     req.throwOn(401, ApiError, 'Unauthorized');
     req.throwOn(403, ApiError, 'Access Denied');
     req.throwOn(404, ApiError, 'Not Found');
@@ -168,7 +168,7 @@ export class ApiController extends BaseController {
       accountId: [accountId, string()],
       sessionId: [sessionId, string()],
     });
-    req.appendTemplatePath`/accounts/${new SkipEncode(mapped.accountId)}/sessions/${new SkipEncode(mapped.sessionId)}`;
+    req.appendTemplatePath`/accounts/${mapped.accountId}/sessions/${mapped.sessionId}`;
     req.throwOn(401, ApiError, 'Unauthorized');
     req.throwOn(403, ApiError, 'Access Denied');
     req.throwOn(404, ApiError, 'Not Found');
@@ -193,7 +193,7 @@ export class ApiController extends BaseController {
       accountId: [accountId, string()],
       sessionId: [sessionId, string()],
     });
-    req.appendTemplatePath`/accounts/${new SkipEncode(mapped.accountId)}/sessions/${new SkipEncode(mapped.sessionId)}/participants`;
+    req.appendTemplatePath`/accounts/${mapped.accountId}/sessions/${mapped.sessionId}/participants`;
     req.throwOn(401, ApiError, 'Unauthorized');
     req.throwOn(403, ApiError, 'Access Denied');
     req.throwOn(404, ApiError, 'Not Found');
@@ -228,7 +228,7 @@ export class ApiController extends BaseController {
       body: [body, optional(subscriptionsSchema)],
     });
     req.json(mapped.body);
-    req.appendTemplatePath`/accounts/${new SkipEncode(mapped.accountId)}/sessions/${new SkipEncode(mapped.sessionId)}/participants/${new SkipEncode(mapped.participantId)}`;
+    req.appendTemplatePath`/accounts/${mapped.accountId}/sessions/${mapped.sessionId}/participants/${mapped.participantId}`;
     req.throwOn(401, ApiError, 'Unauthorized');
     req.throwOn(403, ApiError, 'Access Denied');
     req.throwOn(404, ApiError, 'Not Found');
@@ -259,7 +259,7 @@ export class ApiController extends BaseController {
       participantId: [participantId, string()],
       sessionId: [sessionId, string()],
     });
-    req.appendTemplatePath`/accounts/${new SkipEncode(mapped.accountId)}/sessions/${new SkipEncode(mapped.participantId)}/participants/${new SkipEncode(mapped.sessionId)}`;
+    req.appendTemplatePath`/accounts/${mapped.accountId}/sessions/${mapped.participantId}/participants/${mapped.sessionId}`;
     req.throwOn(401, ApiError, 'Unauthorized');
     req.throwOn(403, ApiError, 'Access Denied');
     req.throwOn(404, ApiError, 'Not Found');
@@ -287,7 +287,7 @@ export class ApiController extends BaseController {
       participantId: [participantId, string()],
       sessionId: [sessionId, string()],
     });
-    req.appendTemplatePath`/accounts/${new SkipEncode(mapped.accountId)}/sessions/${new SkipEncode(mapped.participantId)}/participants/${new SkipEncode(mapped.sessionId)}/subscriptions`;
+    req.appendTemplatePath`/accounts/${mapped.accountId}/sessions/${mapped.participantId}/participants/${mapped.sessionId}/subscriptions`;
     req.throwOn(401, ApiError, 'Unauthorized');
     req.throwOn(403, ApiError, 'Access Denied');
     req.throwOn(404, ApiError, 'Not Found');
@@ -324,7 +324,7 @@ export class ApiController extends BaseController {
       body: [body, optional(subscriptionsSchema)],
     });
     req.json(mapped.body);
-    req.appendTemplatePath`/accounts/${new SkipEncode(mapped.accountId)}/sessions/${new SkipEncode(mapped.participantId)}/participants/${new SkipEncode(mapped.sessionId)}/subscriptions`;
+    req.appendTemplatePath`/accounts/${mapped.accountId}/sessions/${mapped.participantId}/participants/${mapped.sessionId}/subscriptions`;
     req.throwOn(400, ApiError, 'Bad Request');
     req.throwOn(401, ApiError, 'Unauthorized');
     req.throwOn(403, ApiError, 'Access Denied');
