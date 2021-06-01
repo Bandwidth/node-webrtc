@@ -25,7 +25,7 @@ describe('api', () => {
         const createParticipantBody = {
             callbackUrl: "https://sample.com",
             publishPermissions: ["AUDIO", "VIDEO"],
-            deviceApiVersion: "v3"
+            deviceApiVersion: "V3"
         };
 
         const createParticipantResponse = await controller.createParticipant(accountId, createParticipantBody);
