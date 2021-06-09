@@ -2,8 +2,6 @@ name: Validate SDK
 
 on:
   pull_request:
-    branches:
-      - main
 
 jobs:
   deploy:
