@@ -10,8 +10,8 @@ import { Schema, stringEnum } from '../schema';
  * Enum for DeviceApiVersionEnum
  */
 export enum DeviceApiVersionEnum {
-  V3 = 'v3',
-  V2 = 'v2',
+  V3 = 'V3',
+  V2 = 'V2',
 }
 
 /**
