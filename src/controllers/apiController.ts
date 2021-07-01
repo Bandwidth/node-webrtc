@@ -248,8 +248,8 @@ export class ApiController extends BaseController {
    */
   async removeParticipantFromSession(
     accountId: string,
-    participantId: string,
     sessionId: string,
+    participantId: string,
     requestOptions?: RequestOptions
   ): Promise<ApiResponse<void>> {
     const req = this.createRequest('DELETE');
@@ -259,7 +259,7 @@ export class ApiController extends BaseController {
       participantId: [participantId, string()],
       sessionId: [sessionId, string()],
     });
-    req.appendTemplatePath`/accounts/${mapped.accountId}/sessions/${mapped.participantId}/participants/${mapped.sessionId}`;
+    req.appendTemplatePath`/accounts/${mapped.accountId}/sessions/${mapped.sessionId}/participants/${mapped.participantId}`;
     req.throwOn(401, ApiError, 'Unauthorized');
     req.throwOn(403, ApiError, 'Access Denied');
     req.throwOn(404, ApiError, 'Not Found');
@@ -276,8 +276,8 @@ export class ApiController extends BaseController {
    */
   async getParticipantSubscriptions(
     accountId: string,
-    participantId: string,
     sessionId: string,
+    participantId: string,
     requestOptions?: RequestOptions
   ): Promise<ApiResponse<Subscriptions>> {
     const req = this.createRequest('GET');
@@ -287,7 +287,7 @@ export class ApiController extends BaseController {
       participantId: [participantId, string()],
       sessionId: [sessionId, string()],
     });
-    req.appendTemplatePath`/accounts/${mapped.accountId}/sessions/${mapped.participantId}/participants/${mapped.sessionId}/subscriptions`;
+    req.appendTemplatePath`/accounts/${mapped.accountId}/sessions/${mapped.sessionId}/participants/${mapped.participantId}/subscriptions`;
     req.throwOn(401, ApiError, 'Unauthorized');
     req.throwOn(403, ApiError, 'Access Denied');
     req.throwOn(404, ApiError, 'Not Found');
@@ -310,8 +310,8 @@ export class ApiController extends BaseController {
    */
   async updateParticipantSubscriptions(
     accountId: string,
-    participantId: string,
     sessionId: string,
+    participantId: string,
     body?: Subscriptions,
     requestOptions?: RequestOptions
   ): Promise<ApiResponse<void>> {
@@ -324,7 +324,7 @@ export class ApiController extends BaseController {
       body: [body, optional(subscriptionsSchema)],
     });
     req.json(mapped.body);
-    req.appendTemplatePath`/accounts/${mapped.accountId}/sessions/${mapped.participantId}/participants/${mapped.sessionId}/subscriptions`;
+    req.appendTemplatePath`/accounts/${mapped.accountId}/sessions/${mapped.sessionId}/participants/${mapped.participantId}/subscriptions`;
     req.throwOn(400, ApiError, 'Bad Request');
     req.throwOn(401, ApiError, 'Unauthorized');
     req.throwOn(403, ApiError, 'Access Denied');
