@@ -22,6 +22,10 @@ jobs:
       run: |
            npm install
            npm run test --if-present
+      env:
+        BW_USERNAME: ${{ secrets.BW_USERNAME }}
+        BW_PASSWORD: ${{ secrets.BW_PASSWORD }}
+        BW_ACCOUNT_ID: ${{ secrets.BW_ACCOUNT_ID }}
     - name: Publish npm package
       run: |
             npm version $RELEASE_VERSION --no-git-tag-version
