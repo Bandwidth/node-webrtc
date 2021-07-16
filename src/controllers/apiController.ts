@@ -341,7 +341,7 @@ export class ApiController extends BaseController {
    *
    * @returns BXML string
    */
-  static generateTransferBxml(deviceToken: string, sipUri='sip:sipx.webrtc.bandwidth.com:5060', voiceCallId: string): String {
+  static generateTransferBxml(deviceToken: string, sipUri='sip:sipx.webrtc.bandwidth.com:5060', voiceCallId: string): string {
       return '<?xml version="1.0" encoding="UTF-8" ?>\n'
           + '<Response>'
           + this.generateTransferBxmlVerb(deviceToken, sipUri, voiceCallId)
@@ -356,7 +356,7 @@ export class ApiController extends BaseController {
    *
    * @returns BXML string
    */
-  static generateTransferBxmlVerb(deviceToken: string, sipUri = 'sip:sipx.webrtc.bandwidth.com:5060', voiceCallId: string): String {
+  static generateTransferBxmlVerb(deviceToken: string, sipUri = 'sip:sipx.webrtc.bandwidth.com:5060', voiceCallId: string): string {
       if (voiceCallId != undefined) {
           voiceCallId = voiceCallId.substring(1).replace(/-/g,'');
           return '<Transfer>\n'
