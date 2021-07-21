@@ -359,7 +359,7 @@ export class ApiController extends BaseController {
    * @returns BXML string
    */
   static generateTransferBxmlVerb(deviceToken: string, voiceCallId: string, sipUri = 'sip:sipx.webrtc.bandwidth.com:5060'): string {
-      if (voiceCallId != undefined) {
+      if (voiceCallId) {
           voiceCallId = voiceCallId.substring(1).replace(/-/g,'');
           return '<Transfer>\n'
               + `\t<SipUri uui="${voiceCallId};encoding=base64,${deviceToken};encoding=jwt">${sipUri}</SipUri>\n`
