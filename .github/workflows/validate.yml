@@ -1,6 +1,9 @@
 name: Validate SDK
 
-on: pull_request
+on:
+  schedule:
+    - cron: '0 4 * * *'
+  pull_request:
 
 jobs:
   deploy:
@@ -21,3 +24,9 @@ jobs:
         BW_USERNAME: ${{ secrets.BW_USERNAME }}
         BW_PASSWORD: ${{ secrets.BW_PASSWORD }}
         BW_ACCOUNT_ID: ${{ secrets.BW_ACCOUNT_ID }}
+    - uses: Bandwidth/build-notify-slack-action@v1.0.0
+      if: failure()
+      with:
+        job-status: ${{ job.status }}
+        slack-bot-token: ${{ secrets.SLACK_BOT_TOKEN }}
+        slack-channel: ${{ secrets.SLACK_CHANNEL }}
