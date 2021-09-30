@@ -1,5 +1,15 @@
 # Bandwidth WebRTC
 
+[![Test](https://github.com/Bandwidth/node-webrtc/actions/workflows/test.yaml/badge.svg)](https://github.com/Bandwidth/node-webrtc/actions/workflows/test.yaml)
+
+| **OS** | **Node** |
+|:---:|:---:|
+| Windows 2016 | 12, 14, 16 |
+| Windows 2019 | 12, 14, 16 |
+| Ubuntu 18.04 | 12, 14, 16 |
+| Ubuntu 20.04 | 12, 14, 16 |
+
+
 ## Installation
 
 Use the following command to install the package.
