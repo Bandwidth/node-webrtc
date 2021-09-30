@@ -27,14 +27,14 @@ jobs:
       run: npm install
 
     - name: Build npm Package
-      run: npm run build --if-present
+      run: npm run build
 
     - name: Test npm Package
       env:
         BW_USERNAME: ${{ secrets.BW_USERNAME }}
         BW_PASSWORD: ${{ secrets.BW_PASSWORD }}
         BW_ACCOUNT_ID: ${{ secrets.BW_ACCOUNT_ID }}
-      run: npm run test --if-present
+      run: npm run test
 
     - name: Notify Slack of Failures
       uses: Bandwidth/build-notify-slack-action@v1.0.0
