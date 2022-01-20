@@ -78,6 +78,44 @@ const response = await controller.createParticipant(accountId, body);
 console.log(response.result.participant.id);
 ```
 
+## Add Participant to Session
+
+```typescript
+import {
+  ApiController,
+  Client
+} from '@bandwidth/webrtc';
+
+const client = new Client({
+  basicAuthUserName: 'user',
+  basicAuthPassword: 'pass',
+})
+const controller = new ApiController(client);
+
+const accountId = '01234';
+const sessionId = '56789';
+const participantId = '012';
+
+const participant1 = {
+    participantId: '456'
+};
+
+const participant2 = {
+  participantId: '789',
+  streamAliases: ['alias1', 'alias2']
+};
+
+const sessionIdArg = '012345';
+
+const subscriptions = {
+  sessionId: sessionIdArg,
+  participants: [participant1, participant2]
+};
+
+controller.addParticipantToSession(accountId, sessionId, participantId, subscriptions);
+
+```
+
 ## Bandwidth's WebRTC References
 
 Please visit our [WebRTC home page](https://dev.bandwidth.com/webrtc/about.html) for more information on Bandwidth's WebRTC platform.
