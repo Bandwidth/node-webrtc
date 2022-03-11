@@ -4,6 +4,7 @@
   "sideEffects": false,
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
+  "homepage": "https://github.com/Bandwidth/node-webrtc",
   "module": "dist/webrtc.esm.js",
   "files": [
     "dist",
@@ -49,6 +50,7 @@
     "tiny-warning": "^1.0.3"
   },
   "bugs": {
+    "url": "https://github.com/Bandwidth/node-webrtc/issues",
     "email": "edge-services@bandwidth.com"
   }
 }
