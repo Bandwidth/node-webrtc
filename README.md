@@ -118,4 +118,4 @@ controller.addParticipantToSession(accountId, sessionId, participantId, subscrip
 
 ## Bandwidth's WebRTC References
 
-Please visit our [WebRTC home page](https://dev.bandwidth.com/webrtc/about.html) for more information on Bandwidth's WebRTC platform.
+Please visit our [WebRTC home page](https://dev.bandwidth.com/docs/webrtc) for more information on Bandwidth's WebRTC platform.
