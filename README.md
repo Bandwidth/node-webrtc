@@ -95,21 +95,9 @@ const controller = new ApiController(client);
 const accountId = '01234';
 const sessionId = '56789';
 const participantId = '012';
-
-const participant1 = {
-    participantId: '456'
-};
-
-const participant2 = {
-  participantId: '789',
-  streamAliases: ['alias1', 'alias2']
-};
-
 const sessionIdArg = '012345';
-
 const subscriptions = {
-  sessionId: sessionIdArg,
-  participants: [participant1, participant2]
+  sessionId: sessionIdArg
 };
 
 controller.addParticipantToSession(accountId, sessionId, participantId, subscriptions);
